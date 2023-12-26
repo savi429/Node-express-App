@@ -24,8 +24,6 @@ async function connectToDatabase() {
 }
 // Connect to MongoDB Atlas
 connectToDatabase();
-
-console.log(process.env.NODE_ENV);
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`server running on port: ${PORT}`);

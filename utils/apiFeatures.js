@@ -44,7 +44,6 @@ class APIFeatures {
     if (this.queryString.fields) {
       const fields = this.queryString.fields.split(',').join(' ');
       this.query = this.query.select(fields);
-      console.log('fields->', fields);
     } else {
       this.query = this.query.select('-__v');
     }

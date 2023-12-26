@@ -13,6 +13,9 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 
 const cors = require('cors');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const compression = require('compression');
+
 const AppError = require('./utils/appError');
 const globalErrorHanlder = require('./controllers/errorController');
 
@@ -65,10 +68,9 @@ app.use(
     ],
   }),
 );
-
+app.use(compression());
 //Owr own custom middleware
 app.use((req, res, next) => {
-  console.log('my own middleware');
   next();
 });
 app.get('/', viewRouter);

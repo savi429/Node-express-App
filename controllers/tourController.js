@@ -183,7 +183,6 @@ exports.getBusyMonth = async (req, res) => {
 };
 
 exports.getDistances = catchAsync(async (req, res, next) => {
-  console.log('params->', req.params);
   const { latlng, unit } = req.params;
   const [lat, lng] = latlng.split(',');
   const multiplier = unit === 'mi' ? 0.000621371 : 0.001;
@@ -195,7 +194,6 @@ exports.getDistances = catchAsync(async (req, res, next) => {
       ),
     );
   }
-  console.log(unit);
   const distances = await Tour.aggregate([
     {
       //geo near should be always first

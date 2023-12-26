@@ -58,8 +58,6 @@ const filterObj = (obj, ...allowedFields) => {
 exports.getAllUsers = factory.getAll(User);
 
 exports.updateMe = catchAsync(async (req, res, next) => {
-  console.log(req.file);
-  console.log(req.body);
   // here user can update name and email
   //1) Create error if user try to chnage pwd
   if (req.body.password || req.body.passwordConfirm) {

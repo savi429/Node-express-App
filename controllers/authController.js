@@ -68,7 +68,6 @@ exports.login = async (req, res, next) => {
 
 exports.protect = catchAsync(async (req, res, next) => {
   //1) get token from req and check it exists
-  //   console.log('start->', req.headers.authorization.startsWith('Bearer'));
   let token;
   if (
     req.headers.authorization &&
@@ -86,14 +85,12 @@ exports.protect = catchAsync(async (req, res, next) => {
   // }
   //2) token verification
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-  // console.log('decoded', decoded);
   //3) check user still exists
   const currentUser = await User.findById(decoded.id);
   if (!currentUser) {
     return next(new AppError('User Belongs to this token doesnt exist', 401));
   }
   //4) check the user changed the password after jwt was issued
-  // console.log('pwd-', currentUser.changedPasswordAfter(decoded.iat));
   const isPasswordChanged = await currentUser.changedPasswordAfter(decoded.iat);
   if (isPasswordChanged) {
     return next(
@@ -124,7 +121,6 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   }
   //2) generate random reset token
   const resetToken = user.createPasswordResetToken();
-  console.log(resetToken);
   await user.save({ validateBeforeSave: false });
   //3) send it to user email
 
